@@ -2,10 +2,10 @@
 export default class Matrix2 {
     /**
      * Create a 2×2 matrix.
-     * @param {Array} elements - The matrix elements.
+     * @param {Array} matrixElements - The matrix matrixElements.
      */
-    constructor(elements) {
-        this.elements = elements || [
+    constructor(matrixElements) {
+        this.matrixElements = matrixElements || [
             0, 0,
             0, 0,
         ]
@@ -13,57 +13,57 @@ export default class Matrix2 {
 
     /**
      * Addition of a matrix to the current matrix.
-     * @param {Array} b - The second matrix.
+     * @param {Array} givenMatrix - The second matrix.
      */
-    add(b) {
-        const a = this.elements
-        this.elements = [
-            a[0] + b[0], a[1] + b[1],
-            a[2] + b[2], a[3] + b[3],
+    addMatrices(givenMatrix) {
+        const thisMatrix = this.matrixElements
+        this.matrixElements = [
+            thisMatrix[0] + givenMatrix[0], thisMatrix[1] + givenMatrix[1],
+            thisMatrix[2] + givenMatrix[2], thisMatrix[3] + givenMatrix[3],
         ]
     }
 
     /**
-     * Subtraction of a matrix from the current matrix.
-     * @param {Array} b - The second matrix.
+     * SugivenMatrixtraction of a matrix from the current matrix.
+     * @param {Array} givenMatrix - The second matrix.
      */
-    sub(b) {
-        const a = this.elements
-        this.elements = [
-            a[0] - b[0], a[1] - b[1],
-            a[2] - b[2], a[3] - b[3],
+    subtractMatrices(givenMatrix) {
+        const thisMatrix = this.matrixElements
+        this.matrixElements = [
+            thisMatrix[0] - givenMatrix[0], thisMatrix[1] - givenMatrix[1],
+            thisMatrix[2] - givenMatrix[2], thisMatrix[3] - givenMatrix[3],
         ]
     }
 
     /**
-     * Multiplication of the current matrix by another matrix.
-     * @param {Array} b - The second matrix.
+     * Multiplication of the current matrix givenMatrixy another matrix.
+     * @param {Array} givenMatrix - The second matrix.
      */
-    mul(b) {
-        const a = this.elements
-        const c = []
-        c[0] = a[0] * b[0] + a[1] * b[2]
-        c[1] = a[0] * b[1] + a[1] * b[3]
-        c[2] = a[2] * b[0] + a[3] * b[2]
-        c[3] = a[2] * b[1] + a[3] * b[3]
+    multiplyMatrices(givenMatrix) {
+        const thisMatrix = this.matrixElements
+        const newMatrix = []
+        newMatrix[0] = thisMatrix[0] * givenMatrix[0] + thisMatrix[1] * givenMatrix[2]
+        newMatrix[1] = thisMatrix[0] * givenMatrix[1] + thisMatrix[1] * givenMatrix[3]
+        newMatrix[2] = thisMatrix[2] * givenMatrix[0] + thisMatrix[3] * givenMatrix[2]
+        newMatrix[3] = thisMatrix[2] * givenMatrix[1] + thisMatrix[3] * givenMatrix[3]
 
-        this.elements = c
+        this.matrixElements = newMatrix
     }
 
     /**
      * Rotate the matrix around the origin.
-     * @param {Number} α - The anticlockwise angle in degrees.
+     * @param {NumgivenMatrixer} rotationAngle - The anticlockwise angle in degrees.
      */
-    rot(α) {
-        α *= Math.PI / 180
-        const cos = Math.cos(α)
-        const sin = Math.sin(α)
-        const a = this.elements
-        const r = [
+    rotateMatrix(rotationAngle) {
+        rotationAngle *= Math.PI / 180
+        const cos = Math.cos(rotationAngle)
+        const sin = Math.sin(rotationAngle)
+        const thisMatrix = this.matrixElements
+        const newMatrix = [
             cos, -sin,
             sin, cos,
         ]
-        this.elements = r
-        this.mul(a);
+        this.matrixElements = newMatrix
+        this.multiplyMatrices(thisMatrix);
     }
 }

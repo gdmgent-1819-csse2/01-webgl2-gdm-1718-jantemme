@@ -9,122 +9,122 @@ export default class TestMatrix2 extends TestMatrix {
     constructor() {
         super()
         console.info('testing Matrix2')
-        this.testAdd()
-        this.testSub()
-        this.testMul()
-        this.testMulIdentity()
-        this.testRot()
+        this.testAddingMatrices()
+        this.testSubtractingMatrices()
+        this.testMultiplyingMatrices()
+        this.testMultiplyingMatricesIdentity()
+        this.testRotatingMatrix()
     }
 
     /**
      * Test the addition method.
      */
-    testAdd() {
-        console.info('test Matrix2.add()')
-        const a = [
+    testAddingMatrices() {
+        console.info('test Matrix2.addMatrices()')
+        const firstMatrixElements = [
             1, 2,
             3, 4,
         ]
-        const b = [
+        const secondMatrixElements = [
             5, 6,
             7, 8,
         ]
-        const expected = [
+        const expectedMatrixElements = [
             6, 8,
             10, 12,
         ]
-        const m = new Matrix2(a)
-        m.add(b)
-        const actual = m.elements
-        this.assertIdentical(actual, expected)
+        const matrix = new Matrix2(firstMatrixElements)
+        matrix.addMatrices(secondMatrixElements)
+        const actualMatrixElements = matrix.elements
+        this.assertIdentical(actualMatrixElements, expectedMatrixElements)
     }
 
     /**
      * Test the subtraction method.
      */
-    testSub() {
-        console.info('test Matrix2.sub()')
-        const a = [
+    testSubtractingMatrices() {
+        console.info('test Matrix2.subtractMatrices()')
+        const firstMatrixElements = [
             1, 2,
             3, 4,
         ]
-        const b = [
+        const secondMatrixElements = [
             9, 8,
             7, 6,
         ]
-        const expected = [
+        const expectedMatrixElements = [
             -8, -6,
             -4, -2,
-        ]
-        const m = new Matrix2(a)
-        m.sub(b)
-        const actual = m.elements
-        this.assertIdentical(actual, expected)
+        ] 
+        const matrix = new Matrix2(firstMatrixElements)
+        matrix.subtractMatrices(secondMatrixElements)
+        const actualMatrixElements = matrix.elements
+        this.assertIdentical(actualMatrixElements, expectedMatrixElements)
     }
 
     /**
      * Test the multiplication method.
      */
-    testMul() {
-        console.info('test Matrix2.mul()')
-        const a = [
+    testMultiplyingMatrices() {
+        console.info('test Matrix2.multiplyMatrices()')
+        const firstMatrixElements = [
             1, 2,
             3, 4,
         ]
-        const b = [
+        const secondMatrixElements = [
             2, -1,
             -1, 2,
         ]
-        const expected = [
+        const expectedMatrixElements = [
             0, 3,
             2, 5,
         ]
-        const m = new Matrix2(a)
-        m.mul(b)
-        const actual = m.elements
-        this.assertIdentical(actual, expected)
+        const m = new Matrix2(firstMatrixElements)
+        matrix.multiplyMatrices(secondMatrixElements)
+        const actualMatrixElements = matrix.elements
+        this.assertIdentical(actualMatrixElements, expectedMatrixElements)
     }
 
     /**
      * Test the multiplication method with an identity matrix.
      */
-    testMulIdentity() {
-        console.info('test Matrix2.mul() by identity matrix')
-        const a = [
+    testMultiplyingMatricesIdentity() {
+        console.info('test Matrix2.multiplyMatrices() by identity matrix')
+        const firstMatrixElements = [
             1, 2,
             3, 4,
         ]
-        const i = [
+        const identityMatrixElements = [
             1, 0,
             0, 1,
         ]
-        const expected = [
+        const expectedMatrixElements = [
             1, 2,
             3, 4,
         ]
-        const m = new Matrix2(a)
-        m.mul(i)
-        const actual = m.elements
-        this.assertIdentical(actual, expected)
+        const matrix = new Matrix2(firstMatrixElements)
+        matrix.multiplyMatrices(identityMatrixElements)
+        const actualMatrixElements = matrix.elements
+        this.assertIdentical(actualMatrixElements, expectedMatrixElements)
     }
 
     /**
      * Test the rotation method.
      */
-    testRot() {
-        console.info('test Matrix2.rot()')
-        const α = 90
-        const a = [
+    testRotatingMatrix() {
+        console.info('test Matrix2.rotateMatrix()')
+        const rotationAngle = 90
+        const matrixElements = [
             3, 0,
             1, 0,
         ]
-        const expected = [
+        const expectedMatrixElements = [
             -1, 0,
             3, 0,
         ]
-        const m = new Matrix2(a)
-        m.rot(α)
-        const actual = m.elements
-        this.assertIdenticalRounded(actual, expected)
+        const matrix = new Matrix2(matrixElements)
+        matrix.rotateMatrix(rotationAngle)
+        const actualMatrixElements = matrix.elements
+        this.assertIdenticalRounded(actualMatrixElements, expectedMatrixElements)
     }
 }

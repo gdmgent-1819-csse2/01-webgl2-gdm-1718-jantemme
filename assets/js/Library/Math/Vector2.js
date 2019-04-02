@@ -16,54 +16,54 @@ export default class Vector2 {
      * Calculate the length of the vector.
      * @return {Number} The length of the vector
      */
-    norm() {
+    getVectorLength() {
         return Math.sqrt(this.x ** 2 + this.y ** 2)
     }
 
     /**
      * Addition of a vector to the current vector.
-     * @param {Vector2} v - The second vector.
+     * @param {Vector2} vector2 - The second vector.
      */
-    add(v) {
-        this.x += v.x
-        this.y += v.y
+    addVectors(vector2) {
+        this.x += vector2.x
+        this.y += vector2.y
     }
 
     /**
      * Subtraction of a vector from the current vector.
-     * @param {Vector2} v - The second vector.
+     * @param {Vector2} vector2 - The second vector.
      */
-    sub(v) {
-        this.x -= v.x
-        this.y -= v.y
+    subtractVectors(vector2) {
+        this.x -= vector2.x
+        this.y -= vector2.y
     }
 
     /**
      * Scalar multiplication. Multiplies a vector by a scalar.
-     * @param {Number} a - The scalar value.
+     * @param {Number} factor - The scalar value.
      */
-    scalar(a) {
-        this.x *= a
-        this.y *= a
+    scalarMultiplication(factor) {
+        this.x *= factor
+        this.y *= factor
     }
 
     /**
      * Calculate the dot product of the current vector and another vector.
-     * @param {Vector2} v - The second vector.
+     * @param {Vector2} vector2 - The second vector.
      * @return {Number} the dot product of the wzo
      */
-    dot(v) {
-        return this.x * v.x + this.y * v.y
+    getDotProduct(vector2) {
+        return this.x * vector2.x + this.y * vector2.y
     }
 
     /**
      * Rotate the vector around the origin.
-     * @param {Number} α - The anticlockwise angle in degrees.
+     * @param {Number} rotationAngle - The anticlockwise angle in degrees.
      */
-    rot(α) {
-        const m = new Matrix2([this.x, 0, this.y, 0])
-        m.rot(α)
-        this.x = m.elements[0]
-        this.y = m.elements[2]
+    rotateVector(rotationAngle) {
+        const matrix = new Matrix2([this.x, 0, this.y, 0])
+        matrix.rot(rotationAngle)
+        this.x = matrix.elements[0]
+        this.y = matrix.elements[2]
     }
 }

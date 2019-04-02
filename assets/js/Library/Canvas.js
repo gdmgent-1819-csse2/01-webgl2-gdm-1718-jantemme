@@ -17,7 +17,7 @@ export default class Canvas {
             white: [255, 255, 255, 0],
             yellow: [255, 255, 0, 0],
         }
-        this.data = {
+        this.properties = {
             colors: [],
             positions: [],
         }
@@ -34,19 +34,19 @@ export default class Canvas {
 
     updateCanvasHandler(event) {
         console.log('updateCanvas')
-        this.clearData()
+        this.clearproperties()
 
         // White point in the middle
-        this.data.positions.push(0, 0)
-        this.data.colors.push(...this.colors.white)
+        this.properties.positions.push(0, 0)
+        this.properties.colors.push(...this.colors.white)
 
         const v = new Vector2(0, 0.5)
-        this.data.positions.push(v.x, v.y)
-        this.data.colors.push(...this.colors.red)
+        this.properties.positions.push(v.x, v.y)
+        this.properties.colors.push(...this.colors.red)
 
         const indicators = new Vector2(0, 0.48)
-        this.data.positions.push(indicators.x, indicators.y)
-        this.data.colors.push(...this.colors.magenta)
+        this.properties.positions.push(indicators.x, indicators.y)
+        this.properties.colors.push(...this.colors.magenta)
 
         const colors = [
             'magenta',
@@ -59,42 +59,42 @@ export default class Canvas {
         ]
 
         colors.forEach(color => {
-            indicators.rot(45)
-            this.data.positions.push(indicators.x, indicators.y)
-            this.data.colors.push(...this.colors[color])
+            indicators.rotateVectorateVector(45)
+            this.properties.positions.push(indicators.x, indicators.y)
+            this.properties.colors.push(...this.colors[color])
         });
 
         const time = new Date()
 
-        console.log((time.getHours() * -30) - time.getMinutes()/2)
+        console.log((time.getHoursVector() * -30) - time.getMinutesVector()/2)
 
 
         for(let i = 0; i < 0.45; i+=0.0001) {
-            const seconds = new Vector2(0, i)
-            seconds.rot(time.getSeconds() * -6)
-            this.data.positions.push(seconds.x, seconds.y)
-            this.data.colors.push(...this.colors.white) 
+            const secondsVector = new Vector2(0, i)
+            secondsVector.rotateVector(time.getSeconds() * -6)
+            this.properties.positions.push(secondsVector.x, secondsVector.y)
+            this.properties.colors.push(...this.colors.white) 
 
             if(i <= 0.35) {
-                const minutes = new Vector2(0, i)
-                minutes.rot(time.getMinutes() * -6)
-                this.data.positions.push(minutes.x, minutes.y)
-                this.data.colors.push(...this.colors.white)
+                const minutesVector = new Vector2(0, i)
+                minutesVector.rotateVector(time.getMinutes() * -6)
+                this.properties.positions.push(minutesVector.x, minutesVector.y)
+                this.properties.colors.push(...this.colors.white)
             }
 
 
             if(i <= 0.15) {
-                const hours = new Vector2(0, i)
-                hours.rot((time.getHours() * -30) - time.getMinutes()/2)
-                this.data.positions.push(hours.x, hours.y)
-                this.data.colors.push(...this.colors.white)
+                const hoursVector = new Vector2(0, i)
+                hoursVector.rotateVector((time.getHours() * -30) - time.getMinutes()/2)
+                this.properties.positions.push(hoursVector.x, hoursVector.y)
+                this.properties.colors.push(...this.colors.white)
             }
         }
 
         for(let i = 0; i < 360; i++) {
-            v.rot(1)
-            this.data.positions.push(v.x, v.y)
-            this.data.colors.push(...this.colors['green'])
+            v.rotateVector(1)
+            this.properties.positions.push(v.x, v.y)
+            this.properties.colors.push(...this.colors['green'])
         }
 
         this.drawScene()
@@ -116,12 +116,12 @@ export default class Canvas {
             {
                 // Random points
                 for (let i = 0, max = 100000; i < max; i++) {
-                    this.data.positions.push(Math.random() * 2 - 1, Math.random() * 2 - 1)
-                    this.data.colors.push(Math.round(Math.random() * 255), Math.round(Math.random() * 255), Math.round(Math.random() * 255), 0)
+                    this.properties.positions.push(Math.random() * 2 - 1, Math.random() * 2 - 1)
+                    this.properties.colors.push(Math.round(Math.random() * 255), Math.round(Math.random() * 255), Math.round(Math.random() * 255), 0)
                 }
                 // White point in the middle.
-                this.data.positions.push(0, 0)
-                this.data.colors.push(...this.colors.white)
+                this.properties.positions.push(0, 0)
+                this.properties.colors.push(...this.colors.white)
             }
             this.drawScene()
             this.refreshCanvas()
@@ -131,8 +131,8 @@ export default class Canvas {
         }
     }
 
-    clearData() {
-        this.data = {
+    clearproperties() {
+        this.properties = {
             colors: [],
             positions: [],
         }
@@ -150,8 +150,8 @@ export default class Canvas {
         let name // Name of attribute used in GLSL.
         let normalized // Should it be normalized to a value between 0 and 1.
         let size // Number of components per vertex attribute, can be 1 through 4.
-        let srcData
-        let type // Datatype.
+        let srcproperties
+        let type // propertiestype.
         const stride = 0 // 0 = move forward size * sizeof(type) each iteration to get the next position.
         const offset = 0 // Start at the beginning of the buffer.
 
@@ -160,14 +160,14 @@ export default class Canvas {
                 name = 'a_VertexColor'
                 normalized = true
                 size = 4
-                srcData = new Uint8Array(this.data.colors)
+                srcproperties = new Uint8Array(this.properties.colors)
                 type = gl.UNSIGNED_BYTE // Integer from 0 through 255.
                 break
             case 'POSITION':
                 name = 'a_VertexPosition'
                 normalized = false
                 size = 2
-                srcData = new Float32Array(this.data.positions)
+                srcproperties = new Float32Array(this.properties.positions)
                 type = gl.FLOAT
                 break
             default:
@@ -176,7 +176,7 @@ export default class Canvas {
 
         const buffer = gl.createBuffer()
         gl.bindBuffer(gl.ARRAY_BUFFER, buffer)
-        gl.bufferData(gl.ARRAY_BUFFER, srcData, gl.STATIC_DRAW)
+        gl.bufferproperties(gl.ARRAY_BUFFER, srcproperties, gl.STATIC_DRAW)
 
         const index = gl.getAttribLocation(program, name)
         gl.enableVertexAttribArray(index)
@@ -272,7 +272,7 @@ export default class Canvas {
         const dimensions = 2
         const mode = modes[0]
         const first = 0
-        const count = this.data.positions.length / dimensions
+        const count = this.properties.positions.length / dimensions
         gl.drawArrays(mode, first, count) // @see https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/drawArrays
     }
 }
